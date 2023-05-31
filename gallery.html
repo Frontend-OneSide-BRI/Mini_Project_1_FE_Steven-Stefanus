@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mini Project 1 | Steven Stefanus</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link href="style.css" rel="stylesheet" />
+</head>
+<body>
+  <!--navbar top-->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">Photo Gallery</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+          </li>
+          <li class="nav-item">
+            <form class="form-inline my-2 my-lg-0">
+              <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="searchInput">
+              <button class="btn btn-outline-primary my-2 my-sm-0" type="button" onclick="filterImages()">Search</button>
+            </form>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <section class="py-5">
+    <div class="text-center mb-5">
+        <h1 class="fw-bolder">Our Gallery</h1>
+        <p class="lead fw-normal  text-dark mb-0 mx-auto" style="width: 70%;">Explore the stunning collection of images that showcase the beauty and artistry of our subjects. Discover the moments frozen in time and indulge in a visual feast that will leave you inspired</p>
+      </div>
+      <!--navbar kategori-->
+  <div class="navbar-kategori">
+    <a href="#" data-kategori="all">Semua</a>
+    <a href="#" data-kategori="animal">Animal</a>
+    <a href="#" data-kategori="music">Music</a>
+    <a href="#" data-kategori="food">Food</a>
+    <a href="#" data-kategori="people">People</a>
+  </div>
+  <!--card item-->
+  <div class="gambar-container">
+    <div class="card gambar-item" data-kategori="animal" data-text="Animal-Lion">
+      <img src="assets/image/lion.jpg" alt="lion">
+    </div>
+    <div class="card gambar-item" data-kategori="animal" data-text="Animal-Fox">
+      <img src="assets/image/fox.jpg" alt="fox">
+    </div>
+    <div class="card gambar-item" data-kategori="food" data-text="Hamburger">
+      <img src="assets/image/hamburger.jpg" alt="hamburger">
+    </div>
+    <div class="card gambar-item" data-kategori="food" data-text="Steak">
+      <img src="assets/image/daging.jpg" alt="steak">
+    </div>
+    <div class="card gambar-item" data-kategori="music" data-text="Guitar">
+      <img src="assets/image/guitar.jpg" alt="guitar">
+    </div>
+    <div class="card gambar-item" data-kategori="food" data-text="Pancake">
+      <img src="assets/image/cake.png" alt="pancake">
+    </div>
+    <div class="card gambar-item" data-kategori="people" data-text="people 1">
+      <img src="assets/image/people1.png" alt="people 1">
+    </div>
+    <div class="card gambar-item" data-kategori="people" data-text="people 2">
+      <img src="assets/image/people2.png" alt="people 2">
+    </div>
+    <div class="card gambar-item" data-kategori="food" data-text="strawberry">
+      <img src="assets/image/strawberry.jpg" alt="strawberry">
+    </div>
+  </div>
+  </section>
+  <footer class="bg-dark py-4 mt-auto">
+    <div class="container px-5">
+        <div class="row align-items-center justify-content-between flex-column flex-sm-row">
+            <div class="col-auto"><div class="small m-0 text-white">Copyright &copy; Your Website 2023</div></div>
+            <div class="col-auto">
+                <a class="link-light small" href="#!">Privacy</a>
+                <span class="text-white mx-1">&middot;</span>
+                <a class="link-light small" href="#!">Terms</a>
+                <span class="text-white mx-1">&middot;</span>
+                <a class="link-light small" href="#!">Contact</a>
+            </div>
+        </div>
+    </div>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function() {
+      $('.carousel').carousel();
+    });
+  
+    function filterImages() {
+      var input = document.getElementById("searchInput");
+      var filter = input.value.toUpperCase();
+      var gambarItems = document.querySelectorAll('.gambar-item');
+      for (var i = 0; i < gambarItems.length; i++) {
+        var kategori = gambarItems[i].getAttribute('data-kategori').toUpperCase();
+        var caption = gambarItems[i].getAttribute('data-text').toUpperCase();
+        if (kategori.indexOf(filter) > -1 || caption.indexOf(filter) > -1) {
+          gambarItems[i].style.display = "block";
+        } else {
+          gambarItems[i].style.display = "none";
+        }
+      }
+    }
+  
+    document.addEventListener('DOMContentLoaded', function() {
+      var navbarLinks = document.querySelectorAll('.navbar-kategori a');
+      for (var i = 0; i < navbarLinks.length; i++) {
+        navbarLinks[i].addEventListener('click', function(e) {
+          e.preventDefault();
+  
+          var kategori = this.getAttribute('data-kategori');
+  
+          var gambarItems = document.querySelectorAll('.gambar-item');
+          for (var j = 0; j < gambarItems.length; j++) {
+            gambarItems[j].style.display = 'none';
+          }
+  
+          if (kategori === 'all') {
+            for (var k = 0; k < gambarItems.length; k++) {
+              gambarItems[k].style.display = 'block';
+            }
+          } else {
+            var filteredItems = document.querySelectorAll('.gambar-item[data-kategori="' + kategori + '"]');
+            for (var l = 0; l < filteredItems.length; l++) {
+              filteredItems[l].style.display = 'block';
+            }
+          }
+  
+          // Menata ulang gambar secara rapi
+          var gambarContainer = document.querySelector('.gambar-container');
+          var gambarItemsArr = Array.prototype.slice.call(gambarContainer.children);
+          gambarItemsArr.sort(function(a, b) {
+            var aKategori = a.getAttribute('data-kategori');
+            var bKategori = b.getAttribute('data-kategori');
+            return aKategori > bKategori ? 1 : -1;
+          });
+          gambarItemsArr.forEach(function(item) {
+            gambarContainer.appendChild(item);
+          });
+        });
+      }
+  
+      var searchInput = document.getElementById("searchInput");
+      searchInput.addEventListener("keyup", function(event) {
+        if (event.keyCode === 13) {
+          event.preventDefault();
+          filterImages();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
